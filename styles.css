@@ -1119,7 +1119,7 @@ svg {
 
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
   margin-bottom: 28px;
 }
@@ -1175,6 +1175,53 @@ svg {
   margin-top: 10px;
   font-size: 0.84rem;
   font-weight: 800;
+}
+
+.contact-card-hours {
+  background: var(--c-sky-blue);
+  border-color: rgba(7, 59, 92, 0.1);
+}
+
+.hours-list {
+  list-style: none;
+  margin: 0 0 12px;
+}
+
+.hours-day {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.hours-day + .hours-day {
+  margin-top: 6px;
+}
+
+.hours-day span {
+  font-weight: 700;
+  color: var(--c-dark-blue);
+}
+
+.hours-day strong {
+  color: var(--c-text-gray);
+  font-weight: 700;
+}
+
+.hours-day.is-today {
+  background: var(--c-dark-blue);
+}
+
+.hours-day.is-today span,
+.hours-day.is-today strong {
+  color: var(--c-white);
+}
+
+.hours-note {
+  color: var(--c-text-gray);
+  font-size: 0.78rem;
 }
 
 .map-wrap {
@@ -1292,6 +1339,91 @@ svg {
 .to-top svg {
   width: 20px;
   height: 20px;
+}
+
+/* WhatsApp floating button */
+.wa-float {
+  position: fixed;
+  right: 22px;
+  bottom: 96px;
+  z-index: 85;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: var(--c-white);
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.wa-float svg {
+  width: 31px;
+  height: 31px;
+}
+
+.wa-float::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.5);
+  animation: wa-pulse 2.4s ease-out infinite;
+}
+
+@keyframes wa-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
+
+.wa-float:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: #1ebe5b;
+  box-shadow: 0 14px 32px rgba(37, 211, 102, 0.55);
+}
+
+.wa-float-bubble {
+  position: absolute;
+  right: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: var(--c-white);
+  color: var(--c-dark-blue);
+  font-size: 0.85rem;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 8px 22px rgba(7, 59, 92, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.wa-float-bubble::before {
+  content: "";
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--c-white);
+}
+
+.wa-float:hover .wa-float-bubble {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
 }
 
 /* Reveal animation support */
@@ -1581,6 +1713,13 @@ svg {
   .to-top {
     right: 15px;
     bottom: 15px;
+  }
+
+  .wa-float {
+    right: 15px;
+    bottom: 86px;
+    width: 52px;
+    height: 52px;
   }
 }
 

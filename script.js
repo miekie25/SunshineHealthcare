@@ -8,6 +8,16 @@ document.documentElement.classList.add("js-enabled");
     yearEl.textContent = new Date().getFullYear();
   }
 
+  var hoursList = document.getElementById("hoursList");
+  if (hoursList) {
+    var weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var today = weekDays[new Date().getDay()];
+    var todayRow = hoursList.querySelector('.hours-day[data-day="' + today + '"]');
+    if (todayRow) {
+      todayRow.classList.add("is-today");
+    }
+  }
+
   var navToggle = document.getElementById("navToggle");
   var primaryNav = document.getElementById("primaryNav");
 
