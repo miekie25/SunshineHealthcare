@@ -179,7 +179,7 @@ document.documentElement.classList.add("js-enabled");
         message += "\nNotes: " + notes;
       }
 
-      var via = "https://wa.me/27812481247?text=" + encodeURIComponent(message);
+      var via = "https://wa.me/27792131692?text=" + encodeURIComponent(message);
       window.open(via, "_blank", "noopener");
     });
   }
