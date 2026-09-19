@@ -283,47 +283,72 @@
         </div>
       </div>
 
-        <div class="drip-grid">
-          <article class="drip-card reveal">
-            <span class="drip-price">R350</span>
-            <h3>Hydrating Drip</h3>
-            <p>Fluids and hydration support to help you bounce back and feel refreshed.</p>
-            <span class="drip-tag">Popular</span>
-          </article>
+        <div class="booking-panel reveal">
+          <div class="booking-head">
+            <h3>Book your drip</h3>
+            <p>Choose one or more drips below — prices are shown in the dropdowns and the total updates as you build your booking.</p>
+          </div>
+          <form class="booking-form" id="bookingForm" novalidate>
+            <div class="booking-field booking-field-full">
+              <div class="booking-lines" id="bookingLines">
+                <div class="booking-line">
+                  <div class="booking-field booking-field-grow">
+                    <label for="dripSelect1">Choose your drip</label>
+                    <select id="dripSelect1" class="line-drip" required>
+                      <option value="" disabled selected>Select a drip…</option>
+                      <option value="Hydrating Drip" data-price="350">Hydrating Drip — R350</option>
+                      <option value="Hangover Drip" data-price="600">Hangover Drip — R600</option>
+                      <option value="Burnout &amp; Fatigue Drip" data-price="700">Burnout &amp; Fatigue Drip — R700</option>
+                      <option value="Immune Booster Drip" data-price="800">Immune Booster Drip — R800</option>
+                      <option value="Skin Glow Drip" data-price="900">Skin Glow Drip — R900</option>
+                      <option value="Vitalize Mother of All Drips" data-price="1000">Vitalize Mother of All Drips — R1000</option>
+                    </select>
+                  </div>
+                  <div class="booking-field booking-field-shrink">
+                    <label for="qtySelect1">Sessions</label>
+                    <select id="qtySelect1" class="line-qty">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
+                  <button type="button" class="line-remove" aria-label="Remove this drip" title="Remove this drip">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </button>
+                </div>
+              </div>
+              <button type="button" class="line-add" id="addDripLine">+ Add another drip</button>
+            </div>
 
-          <article class="drip-card reveal">
-            <span class="drip-price">R600</span>
-            <h3>Hangover Drip</h3>
-            <p>Rehydration and nutrients to help you recover after a long night.</p>
-          </article>
+            <div class="booking-field booking-field-full">
+              <label for="bookingDate">Preferred day</label>
+              <input type="date" id="bookingDate">
+            </div>
 
-          <article class="drip-card reveal">
-            <span class="drip-price">R700</span>
-            <h3>Burnout &amp; Fatigue Drip</h3>
-            <p>Energy focused ingredients to help you fight tiredness and get moving again.</p>
-          </article>
+            <div class="booking-field">
+              <label for="bookingName">Your name</label>
+              <input type="text" id="bookingName" placeholder="Full name" required>
+            </div>
 
-          <article class="drip-card reveal">
-            <span class="drip-price">R800</span>
-            <h3>Immune Booster Drip</h3>
-            <p>Immune supporting vitamins to give your body a helping hand.</p>
-          </article>
+            <div class="booking-field">
+              <label for="bookingPhone">Phone number</label>
+              <input type="tel" id="bookingPhone" placeholder="e.g. 081 248 1247" required>
+            </div>
 
-          <article class="drip-card reveal">
-            <span class="drip-price">R900</span>
-            <h3>Skin Glow Drip</h3>
-            <p>Glow boosting nutrients to support your skin from the inside out.</p>
-          </article>
+            <div class="booking-field booking-field-full">
+              <label for="bookingNotes">Notes <span class="field-optional">(optional)</span></label>
+              <textarea id="bookingNotes" rows="3" placeholder="Anything we should know?"></textarea>
+            </div>
 
-          <article class="drip-card drip-card-hero reveal">
-            <span class="drip-price">R1000</span>
-            <h3>Vitalize Mother of All Drips</h3>
-            <p>Our signature blend. The complete package for when you feel flat and want to glow, recharge and feel great.</p>
-            <span class="drip-tag">Signature</span>
-          </article>
+            <div class="booking-total" id="bookingTotal">Total: R0</div>
+
+            <button type="submit" class="btn btn-primary btn-full">Book via WhatsApp</button>
+          </form>
         </div>
 
-        <p class="drip-note">Prices as advertised on our clinic menu. Drips are administered at the clinic by a qualified professional. Call us to confirm the current menu and any specials.</p>
+        <p class="drip-note">Prices as advertised on our clinic menu. Drips are administered at the clinic by a qualified professional. Submitting your booking opens WhatsApp with your request — we will confirm your time. Call us to check the current menu and any specials.</p>
       </div>
     </section>
 

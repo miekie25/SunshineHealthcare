@@ -70,4 +70,117 @@ document.documentElement.classList.add("js-enabled");
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
+
+  var bookingForm = document.getElementById("bookingForm");
+  if (bookingForm) {
+    var linesWrap = document.getElementById("bookingLines");
+    var addDripBtn = document.getElementById("addDripLine");
+    var bookingTotal = document.getElementById("bookingTotal");
+
+    function linePrice(line) {
+      var sel = line.querySelector(".line-drip");
+      var opt = sel.options[sel.selectedIndex];
+      return opt && opt.dataset && opt.dataset.price ? parseInt(opt.dataset.price, 10) : 0;
+    }
+
+    function lineQty(line) {
+      return parseInt(line.querySelector(".line-qty").value, 10);
+    }
+
+    function updateTotal() {
+      var total = 0;
+      document.querySelectorAll(".booking-line").forEach(function (line) {
+        total += linePrice(line) * lineQty(line);
+      });
+      bookingTotal.textContent = "Total: R" + total.toLocaleString("en-ZA");
+    }
+
+    function addLine() {
+      var source = linesWrap.querySelector(".booking-line");
+      var clone = source.cloneNode(true);
+      var n = linesWrap.querySelectorAll(".booking-line").length + 1;
+
+      clone.querySelectorAll("select").forEach(function (sel) {
+        var baseId = sel.id;
+        sel.id = baseId + "-" + n;
+        var lbl = clone.querySelector('label[for="' + baseId + '"]');
+        if (lbl) {
+          lbl.setAttribute("for", sel.id);
+        }
+        sel.selectedIndex = sel.classList.contains("line-qty") ? 0 : 0;
+      });
+
+      linesWrap.appendChild(clone);
+      updateTotal();
+    }
+
+    addDripBtn.addEventListener("click", addLine);
+
+    linesWrap.addEventListener("click", function (event) {
+      var btn = event.target.closest(".line-remove");
+      if (!btn) {
+        return;
+      }
+      var line = btn.closest(".booking-line");
+      if (linesWrap.querySelectorAll(".booking-line").length > 1) {
+        line.parentNode.removeChild(line);
+        updateTotal();
+      }
+    });
+
+    document.querySelectorAll(".booking-line select").forEach(function (sel) {
+      sel.addEventListener("change", updateTotal);
+    });
+
+    bookingForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var name = bookingForm.querySelector("#bookingName").value.trim();
+      var phone = bookingForm.querySelector("#bookingPhone").value.trim();
+      var day = bookingForm.querySelector("#bookingDate").value;
+      var notes = bookingForm.querySelector("#bookingNotes").value.trim();
+
+      var lines = document.querySelectorAll(".booking-line");
+      var items = [];
+      var grandTotal = 0;
+      var missing = [];
+
+      lines.forEach(function (line) {
+        var price = linePrice(line);
+        var qty = lineQty(line);
+        if (price) {
+          items.push(line.querySelector(".line-drip").value + " x" + qty + " — R" + price * qty);
+          grandTotal += price * qty;
+        }
+      });
+
+      if (!items.length) missing.push("a drip");
+      if (!name) missing.push("your name");
+      if (!phone) missing.push("your phone number");
+
+      if (missing.length) {
+        alert("Please choose " + missing.join(", ") + ".");
+        return;
+      }
+
+      var message = [
+        "Hello Sunshine Health Care!",
+        "I would like to book drip sessions.",
+        "",
+        "Selection:",
+        items.map(function (item) { return "- " + item; }).join("\n"),
+        "Total: R" + grandTotal,
+        "",
+        "Preferred day: " + (day || "Flexible"),
+        "Name: " + name,
+        "Phone: " + phone
+      ].join("\n");
+
+      if (notes) {
+        message += "\nNotes: " + notes;
+      }
+
+      var via = "https://wa.me/27812481247?text=" + encodeURIComponent(message);
+      window.open(via, "_blank", "noopener");
+    });
+  }
 })();
