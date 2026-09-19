@@ -1170,6 +1170,15 @@ svg {
   color: var(--c-dark-blue);
 }
 
+.contact-card a.contact-plain {
+  color: inherit;
+  font-weight: 700;
+}
+
+.contact-card a.contact-plain:hover {
+  color: var(--c-dark-blue);
+}
+
 .text-link {
   display: inline-block;
   margin-top: 10px;
